@@ -1,6 +1,6 @@
 # Employee Management System with APIs and Visualization
 
-This is a Django-based backend application that provides a fully functional employee management system. It includes database models, REST APIs, authentication, Swagger documentation, and a visualization dashboard. The project is also containerized with Docker and ready for deployment.
+This is a Django-based backend application that provides a fully functional employee management system. It includes database models, REST APIs, token authentication, Swagger documentation, a visualization dashboard, and optional Docker deployment support.
 
 ## Features
 
@@ -30,7 +30,9 @@ This is a Django-based backend application that provides a fully functional empl
 ### Local Setup
 
 1. Clone this repository.
+
 2. Copy the `.env.example` file to `.env` and configure your local PostgreSQL credentials.
+
 3. Install dependencies:
 
    ```bash
@@ -57,6 +59,7 @@ This is a Django-based backend application that provides a fully functional empl
    ```
 
 Access:
+
 - Admin panel: `http://localhost:8000/admin/`
 - Swagger docs: `http://localhost:8000/swagger/`
 - Dashboard: `http://localhost:8000/dashboard/`
@@ -64,7 +67,9 @@ Access:
 ### Docker Setup
 
 1. Ensure Docker is installed and running.
+
 2. Copy `.env.example` to `.env` and use the following `DB_HOST=db` setting.
+
 3. Start the containers:
 
    ```bash
@@ -81,6 +86,19 @@ Access:
 
 Visit the same URLs via `http://localhost:8000/`.
 
+## Deployment on Render
+
+This project has been successfully deployed to Render using Docker.
+
+Live URL (if initialized):
+
+- https://employee-management-system-with-apis-and.onrender.com
+
+> Note: Render’s free tier does not support interactive shell access. Migrations and seed data must be initialized either by:
+>
+> - Including a startup script in `Dockerfile`, or
+> - Executing via shell if using Render Pro plan.
+
 ## Environment Variables
 
 Example `.env`:
@@ -88,20 +106,29 @@ Example `.env`:
 ```env
 DB_NAME=glynac_db
 DB_USER=postgres
-DB_PASSWORD=123456
-DB_HOST=db
+DB_PASSWORD=yourpassword
+DB_HOST=localhost
 DB_PORT=5432
+```
+
+For Docker/Render, use:
+
+```env
+DB_HOST=db  # for Docker
+DB_HOST=dpg-xxxx.onrender.com  # for Render Internal DB host
 ```
 
 ## API Endpoints
 
 All API endpoints are available under `/api/`. For example:
+
 - `GET /api/employees/`
 - `POST /api/attendance/`
 - `GET /api/performance/?ordering=-rating`
 - `GET /api/employees/?department=HR&ordering=date_joined`
 
 Authentication is required for most endpoints via token-based header:
+
 ```
 Authorization: Token <your-token>
 ```
@@ -114,10 +141,6 @@ Run all tests with:
 python manage.py test
 ```
 
-## Deployment Notes
-
-This project is Docker-ready and can be deployed to platforms like Render, Railway, or any cloud platform supporting Docker. A PostgreSQL service must be provisioned, and environment variables set accordingly.
-
 ---
 
-For questions or setup issues, please contact the maintainer at carlyiu14@gmail.com.
+For inquiries, please contact: carlyiu14@gmail.com
