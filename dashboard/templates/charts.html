@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Employee Dashboard</h1>
+
+        <div class="bg-white rounded-lg shadow p-6 mb-10">
+            <h2 class="text-xl font-semibold mb-4">Employees per Department</h2>
+            <div class="w-full max-w-2xl mx-auto">
+                <canvas id="departmentChart"></canvas>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">Monthly Attendance Overview</h2>
+            <div class="w-full max-w-3xl mx-auto">
+                <canvas id="attendanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const deptData = {{ department_data|safe }};
+        const attData = {{ attendance_data|safe }};
+
+        new Chart(document.getElementById("departmentChart"), {
+            type: 'pie',
+            data: {
+                labels: deptData.labels,
+                datasets: [{
+                    label: "Employees per Department",
+                    data: deptData.data,
+                    backgroundColor: ['#60A5FA', '#FBBF24', '#34D399', '#F87171', '#A78BFA']
+                }]
+            }
+        });
+
+        new Chart(document.getElementById("attendanceChart"), {
+            type: 'bar',
+            data: {
+                labels: attData.labels,
+                datasets: [{
+                    label: "Number of Present Employees",
+                    data: attData.data,
+                    backgroundColor: '#4F46E5'
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
